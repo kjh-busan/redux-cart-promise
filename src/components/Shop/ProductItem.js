@@ -16,8 +16,9 @@ const ProductItem = (props) => {
         title,
         price,
       })
-    ）};
-）｝
+    );
+  }
+  
   return (
     <li className={classes.item}>
       <Card>
