@@ -11,12 +11,8 @@ const CartItem = (props) => {
     dispatch(cartActions.removeItemFromCart(id));
   };
   const addItemHandler = (item) => {
-    dispatch({
-      id,
-      title,
-      price,
-    });
-  };
+    dispatch(cartActions.addItemToCart({ id, title, price }));
+  }
 
   return (
     <li className={classes.item}>
