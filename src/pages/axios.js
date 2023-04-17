@@ -1,41 +1,40 @@
-import { FC, useState, useEffect } from "react";
+import { FC, useState } from "react";
 import axis from "axios";
 import requests from "utils/Request";
-import SampleType from "interfaces";
+import { TextField } from "@material-ui/core";
 
-const Sample: FC = () => {
-  const [info, setInfo] = useState([]);
-  const datad: SampleType[] = [];
+const SampleSave: FC = () => {
+  const [configurationName, setConfigurationName] = useState("");
 
-  useEffect(() => {
-    const getSampleData = () => {
-      axis
-        .get(requests.fetchSampleData) // GETメソッドを呼び出す
-        .then((res) => {
-          // レスポンスを受け取ったらthenを実行する
+  // Saveボタン押下
+  const onClick = (event: Event) => {
+    event.preventDefault();
 
-          // GETで取得したデータをforEachでループしてStateにセットする
-          res.data.forEach((resData) => {
-            const data: SampleType = {
-              userId: resData["user_id"],
-              userName: resData["user_name"],
-              clubCode: resData["club_code"],
-              clubName: resData["club_name"],
-            };
-            datas.push(data);
-          });
-          setInfo(datas);
-        })
-        .catch((error) => {
-          // エラーコードが返ってきた場合
-          console.log(error); // エラーコードを表示
-        });
-    };
+    axis
+      .post(requests.InsertSampleData, {
+        configuration_name: configurationName,
+      })
+      .then((red) => {
+        // ここで返って来た結果に対して処理を行う
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-    getSampleData(); // 関数を実行する
-  }, []);
+  // テキストボックスの値が変更された時Stateを更新する
+  const onChangeValue = (event: ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    setConfigurationName(event.target.value); // 値をStateへセットする
+  };
 
-  return <>// ここにTSX、もしくはJSXを記述する</>;
+  return (
+    <>
+      <TextField value={configurationName} onChange={onChangeValue} />
+
+      <Button text="SAVE" onClick={onClickUpdate} />
+    </>
+  );
 };
 
 export default Sample;
