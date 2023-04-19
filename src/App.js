@@ -8,8 +8,17 @@ import Products from "./components/Shop/Products";
 function App() {
   const showCart = useSelector((state) => state.ui.cartIsVisible);
   const cart = useSelector((state) => state.cart);
-  useEffect(() => {}, []);
-
+  
+  useEffect(() => {
+    fetch(
+      "https://mysecondproject-1d7a0-default-rtdb.asia-southeast1.firebasedatabase.app/",
+      {
+        method: "PUT",
+        body: JSON.stringify(cart),
+      }
+    );
+  }, [cart]);
+  
   return (
     <Layout>
       {showCart && <Cart />}
