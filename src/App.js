@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect , useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import Cart from "./components/Cart/Cart";
@@ -15,10 +15,9 @@ function App() {
   useEffect(() => {
     const sendCartData = async () => {
       dispatch(uiActions.showNotification({
-        uiActions.showNotification({
           status: 'pendings', title: 'sending', message: 'sending cart data!',
         })
-    }))
+      )}
       const response = await fetch(
         "https://mysecondproject-1d7a0-default-rtdb.asia-southeast1.firebasedatabase.app/cart.json",
         {
@@ -28,17 +27,18 @@ function App() {
       );
 
       if (!response.ok) {
-        dispatch(
-          uiActions.showNotification({
-            status: 'error',
-            title: 'Error',
-            message: "Sending cart data failed"
-          })
-        )
+        throw new Error("sending cart data failed.")
       }
 
-      const responseData = await response.json();
-    };
+      // const responseData = await response.json();
+
+      dispatch(
+        uiActions.showNotification({
+          status: 'error',
+          title: 'Error',
+          message: "Sending cart data failed"
+        })
+      )
   }, [cart]);
 
   return (
