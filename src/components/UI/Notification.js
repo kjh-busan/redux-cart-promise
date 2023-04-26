@@ -1,3 +1,5 @@
+import classes from "./Notification.module.css";
+
 const Notification = (props) => {
   let specialClasses = "";
 
@@ -19,6 +21,3 @@ const Notification = (props) => {
 };
 
 export default Notification;
-
-
-// https://github.com/academind/react-complete-guide-code/tree/19-advanced-redux/extra-files
