@@ -1,11 +1,11 @@
 import ProductItem from './ProductItem';
 import classes from './Products.module.css';
 
-const DUMMY_PRODUCT = [
+const DUMMY_PRODUCTS = [
   {
     id: "p1",
     price: 6,
-    title: "My Frist Book",
+    title: "My First Book",
     description: "The first book I ever wrote",
   },
   {
@@ -15,12 +15,13 @@ const DUMMY_PRODUCT = [
     description: "The second book I ever wrote",
   },
 ];
+
 const Products = (props) => {
   return (
     <section className={classes.products}>
       <h2>Buy your favorite products</h2>
       <ul>
-        {DUMMY_PRODUCT.map((product) => (
+        {DUMMY_PRODUCTS.map((product) => (
           <ProductItem
             key={product.id}
             id={product.id}
