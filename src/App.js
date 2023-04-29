@@ -1,4 +1,4 @@
-import { Fragement, useEffect , useState } from "react";
+import { Fragment, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import Cart from "./components/Cart/Cart";
@@ -17,45 +17,64 @@ function App() {
 
   useEffect(() => {
     const sendCartData = async () => {
-      dispatch(uiActions.showNotification({
-          status: 'pendings', title: 'sending', message: 'sending cart data!',
+      dispatch(
+        uiActions.showNotification({
+          status: "pending",
+          title: "Sending...",
+          message: "Sending cart data!",
         })
-      )}
+      );
       const response = await fetch(
-        "https://mysecondproject-1d7a0-default-rtdb.asia-southeast1.firebasedatabase.app/cart.json",
+        "https://react-http-6b4a6.firebaseio.com/cart.json",
         {
           method: "PUT",
           body: JSON.stringify(cart),
         }
       );
 
-      if (isInitial) {
-        isInitial = false;
-         return;
+      if (!response.ok) {
+        throw new Error("Sending cart data failed.");
       }
-      // if (!response.ok) {
-      //   throw new Error("sending cart data failed.")
-      // }
-      // const responseData = await response.json();
-      sendCartData().catch(error => {
-        dispatch(
-          uiActions.showNotification({
-            status: 'error',
-            title: 'Error',
-            message: "Sending cart data failed"
-          })
-        )
-      })
+
+      dispatch(
+        uiActions.showNotification({
+          status: "success",
+          title: "Success!",
+          message: "Sent cart data successfully!",
+        })
+      );
+    };
+
+    if (isInitial) {
+      isInitial = false;
+      return;
+    }
+
+    sendCartData().catch((error) => {
+      dispatch(
+        uiActions.showNotification({
+          status: "error",
+          title: "Error!",
+          message: "Sending cart data failed!",
+        })
+      );
+    });
   }, [cart, dispatch]);
 
   return (
-    <>
-    {notification && (<Notification status={notification.status} title={notification.title} message={notification.message}/>)}
-    <Layout>
-      {showCart && <Cart />}
-      <Products />
-    </Layout>
-    </>
+    <Fragment>
+      {notification && (
+        <Notification
+          status={notification.status}
+          title={notification.title}
+          message={notification.message}
+        />
+      )}
+      <Layout>
+        {showCart && <Cart />}
+        <Products />
+      </Layout>
+    </Fragment>
   );
 }
 
