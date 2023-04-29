@@ -78,6 +78,13 @@ const sendCartData = (cart) => {
         })
       );
     } catch (error) {
+      dispatch(
+        uiActions.showNotification({
+          status: "error",
+          title: "Error!",
+          message: "Sending cart data failed!",
+        })
+      );
     } finally {
       // Nothing
     }
