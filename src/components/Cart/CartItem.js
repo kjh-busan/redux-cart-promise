@@ -5,19 +5,21 @@ import { cartActions } from "../../store/cart-slice";
 
 const CartItem = (props) => {
   const dispatch = useDispatch();
-  const { title, quantity, total, price, id } = props.item;
-  // console.log(id);
-  // console.log(props);
-  // console.log(title);
-  // console.log(quantity);
-  // console.log(total);
-  // console.log(price);
 
-  const removeItemHandler = (item) => {
+  const { title, quantity, total, price, id } = props.item;
+
+  const removeItemHandler = () => {
     dispatch(cartActions.removeItemFromCart(id));
   };
-  const addItemHandler = (item) => {
-    dispatch(cartActions.addItemToCart({ id, title, price }));
+
+  const addItemHandler = () => {
+    dispatch(
+      cartActions.addItemToCart({
+        id,
+        title,
+        price,
+      })
+    );
   };
 
   return (
