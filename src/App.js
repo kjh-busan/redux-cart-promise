@@ -17,13 +17,7 @@ function App() {
 
   useEffect(() => {
     const sendCartData = async () => {
-      dispatch(
-        uiActions.showNotification({
-          status: "pending",
-          title: "Sending...",
-          message: "Sending cart data!",
-        })
-      );
+
       const response = await fetch(
         "https://react-http-6b4a6.firebaseio.com/cart.json",
         {
