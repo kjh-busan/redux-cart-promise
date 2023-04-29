@@ -42,8 +42,8 @@ const cartSlice = createSlice({
   },
 });
 
-const sendCartData = (cartData) => {
-  return (dispatch) => {
+const sendCartData = (cart) => {
+  return async (dispatch) => {
     dispatch(
       uiActions.showNotification({
         status: "pending",
@@ -51,6 +51,18 @@ const sendCartData = (cartData) => {
         message: "Sending cart data!",
       })
     );
+
+    const response = await fetch(
+      "https://react-http-6b4a6.firebaseio.com/cart.json",
+      {
+        method: "PUT",
+        body: JSON.stringify(cart),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Sending cart data failed.");
+    }
   };
 };
 
