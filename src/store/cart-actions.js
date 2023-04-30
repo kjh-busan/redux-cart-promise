@@ -17,7 +17,7 @@ export const fetchCartData = () => {
     };
 
     try {
-      fetchData();
+      const carData = await fetchData();
     } catch (error) {
       dispatch(
         uiActions.showNotification({
