@@ -1,7 +1,7 @@
 import { uiActions } from "./ui-slice";
 
 export const fetchCartData = () => {
-  return (dispatch) => {
+  return async (dispatch) => {
     const fetchData = async () => {
       const response = await fetch(
         "https://mysecondproject-1d7a0-default-rtdb.asia-southeast1.firebasedatabase.app/cart.json"
@@ -23,7 +23,7 @@ export const fetchCartData = () => {
         uiActions.showNotification({
           status: "error",
           title: "Error!",
-          message: "Sending cart data failed!",
+          message: "Fetching cart data failed!",
         })
       );
     }
